@@ -1,0 +1,605 @@
+mysql> desc Invoices;
+ERROR 1146 (42S02): Table 'Chinook.Invoices' doesn't exist
+mysql> desc Invoice;
++-------------------+---------------+------+-----+---------+----------------+
+| Field             | Type          | Null | Key | Default | Extra          |
++-------------------+---------------+------+-----+---------+----------------+
+| InvoiceId         | int(11)       | NO   | PRI | NULL    | auto_increment |
+| CustomerId        | int(11)       | NO   | MUL | NULL    |                |
+| InvoiceDate       | datetime      | NO   |     | NULL    |                |
+| BillingAddress    | varchar(70)   | YES  |     | NULL    |                |
+| BillingCity       | varchar(40)   | YES  |     | NULL    |                |
+| BillingState      | varchar(40)   | YES  |     | NULL    |                |
+| BillingCountry    | varchar(40)   | YES  |     | NULL    |                |
+| BillingPostalCode | varchar(10)   | YES  |     | NULL    |                |
+| Total             | decimal(10,2) | NO   |     | NULL    |                |
++-------------------+---------------+------+-----+---------+----------------+
+9 rows in set (0.02 sec)
+
+mysql> logging to file.txt
+    -> source test.s test.sql;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'logging to file.txt
+source test.s test.sql' at line 1
+mysql> source test.sql
++----------+
+| count(*) |
++----------+
+|     3503 |
++----------+
+1 row in set (0.01 sec)
+
++----------+
+| count(*) |
++----------+
+|      275 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from Album list 5;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '5' at line 1
+mysql> select * from Album limit 5;
++---------+---------------------------------------+----------+
+| AlbumId | Title                                 | ArtistId |
++---------+---------------------------------------+----------+
+|       1 | For Those About To Rock We Salute You |        1 |
+|       2 | Balls to the Wall                     |        2 |
+|       3 | Restless and Wild                     |        2 |
+|       4 | Let There Be Rock                     |        1 |
+|       5 | Big Ones                              |        3 |
++---------+---------------------------------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select Title,Name from Album
+    -> join Artist on Album.AristId = Artist.ArtistID limit 5;
+ERROR 1054 (42S22): Unknown column 'Album.AristId' in 'on clause'
+mysql> select Title,Name from Album join Artist on Album.AristId = Artist.ArtistId limit 5;
+ERROR 1054 (42S22): Unknown column 'Album.AristId' in 'on clause'
+mysql> show tables;
++-------------------+
+| Tables_in_Chinook |
++-------------------+
+| Album             |
+| Artist            |
+| Customer          |
+| Employee          |
+| Genre             |
+| Invoice           |
+| InvoiceLine       |
+| MediaType         |
+| Playlist          |
+| PlaylistTrack     |
+| Track             |
++-------------------+
+11 rows in set (0.00 sec)
+
+mysql> desc Artist;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| ArtistId | int(11)      | NO   | PRI | NULL    | auto_increment |
+| Name     | varchar(120) | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> select Title, Name from 
+    -> quit
+    -> quit;
+ERROR 1146 (42S02): Table 'Chinook.quit' doesn't exist
+mysql> select Title, Name from 
+    -> Album
+    -> join Artist on Album.ArtistId = Artist.ArtistId limit 5;
++---------------------------------------+-----------+
+| Title                                 | Name      |
++---------------------------------------+-----------+
+| For Those About To Rock We Salute You | AC/DC     |
+| Balls to the Wall                     | Accept    |
+| Restless and Wild                     | Accept    |
+| Let There Be Rock                     | AC/DC     |
+| Big Ones                              | Aerosmith |
++---------------------------------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> insert Genre (Name) Values ('Trad');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> desc Genre;
++---------+--------------+------+-----+---------+----------------+
+| Field   | Type         | Null | Key | Default | Extra          |
++---------+--------------+------+-----+---------+----------------+
+| GenreId | int(11)      | NO   | PRI | NULL    | auto_increment |
+| Name    | varchar(120) | YES  |     | NULL    |                |
++---------+--------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| Chinook            |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use Chinook;
+Database changed
+mysql> show tables
+    -> show fields;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'show fields' at line 2
+mysql> show tables;
++-------------------+
+| Tables_in_Chinook |
++-------------------+
+| Album             |
+| Artist            |
+| Customer          |
+| Employee          |
+| Genre             |
+| Invoice           |
+| InvoiceLine       |
+| MediaType         |
+| Playlist          |
+| PlaylistTrack     |
+| Track             |
++-------------------+
+11 rows in set (0.00 sec)
+
+mysql> desc Genre;
++---------+--------------+------+-----+---------+----------------+
+| Field   | Type         | Null | Key | Default | Extra          |
++---------+--------------+------+-----+---------+----------------+
+| GenreId | int(11)      | NO   | PRI | NULL    | auto_increment |
+| Name    | varchar(120) | YES  |     | NULL    |                |
++---------+--------------+------+-----+---------+----------------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT LAST
+    -> _INSERT_ID();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '()' at line 2
+mysql> SELECT LAST_INSERT_ID();
++------------------+
+| LAST_INSERT_ID() |
++------------------+
+|               26 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from GEnre where GEnreId = 26;
+ERROR 1146 (42S02): Table 'Chinook.GEnre' doesn't exist
+mysql> select * from Genre where GenreId = 26;
++---------+------+
+| GenreId | Name |
++---------+------+
+|      26 | Trad |
++---------+------+
+1 row in set (0.00 sec)
+
+mysql> update Genre set Name = 'Traditional' where Name = 'Trad';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * Genre where GenreId =26;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Genre where GenreId =26' at line 1
+mysql> select * Genre where GenreId =26;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Genre where GenreId =26' at line 1
+mysql> select * from Genre where GenreId = 26;
++---------+-------------+
+| GenreId | Name        |
++---------+-------------+
+|      26 | Traditional |
++---------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from Genre;
++---------+--------------------+
+| GenreId | Name               |
++---------+--------------------+
+|       1 | Rock               |
+|       2 | Jazz               |
+|       3 | Metal              |
+|       4 | Alternative & Punk |
+|       5 | Rock And Roll      |
+|       6 | Blues              |
+|       7 | Latin              |
+|       8 | Reggae             |
+|       9 | Pop                |
+|      10 | Soundtrack         |
+|      11 | Bossa Nova         |
+|      12 | Easy Listening     |
+|      13 | Heavy Metal        |
+|      14 | R&B/Soul           |
+|      15 | Electronica/Dance  |
+|      16 | World              |
+|      17 | Hip Hop/Rap        |
+|      18 | Science Fiction    |
+|      19 | TV Shows           |
+|      20 | Sci Fi & Fantasy   |
+|      21 | Drama              |
+|      22 | Comedy             |
+|      23 | Alternative        |
+|      24 | Classical          |
+|      25 | Opera              |
+|      26 | Traditional        |
++---------+--------------------+
+26 rows in set (0.00 sec)
+
+mysql> delete from Genre where Name 
+    -> delete from Genre where Name = 'Traditional';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delete from Genre where Name = 'Traditional'' at line 2
+mysql> delete from Genre where Name = 'Traditional'
+    -> delete from Genre where Name = 'Traditional';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delete from Genre where Name = 'Traditional'' at line 2
+mysql> delete from Genre where Name ='Traditional';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from Genre;
++---------+--------------------+
+| GenreId | Name               |
++---------+--------------------+
+|       1 | Rock               |
+|       2 | Jazz               |
+|       3 | Metal              |
+|       4 | Alternative & Punk |
+|       5 | Rock And Roll      |
+|       6 | Blues              |
+|       7 | Latin              |
+|       8 | Reggae             |
+|       9 | Pop                |
+|      10 | Soundtrack         |
+|      11 | Bossa Nova         |
+|      12 | Easy Listening     |
+|      13 | Heavy Metal        |
+|      14 | R&B/Soul           |
+|      15 | Electronica/Dance  |
+|      16 | World              |
+|      17 | Hip Hop/Rap        |
+|      18 | Science Fiction    |
+|      19 | TV Shows           |
+|      20 | Sci Fi & Fantasy   |
+|      21 | Drama              |
+|      22 | Comedy             |
+|      23 | Alternative        |
+|      24 | Classical          |
+|      25 | Opera              |
++---------+--------------------+
+25 rows in set (0.00 sec)
+
+mysql> select Name from Afrtim Artist;
+ERROR 1146 (42S02): Table 'Chinook.Afrtim' doesn't exist
+mysql> select Name from Artist;
++---------------------------------------------------------------------------------------+
+| Name                                                                                  |
++---------------------------------------------------------------------------------------+
+| AC/DC                                                                                 |
+| Accept                                                                                |
+| Aerosmith                                                                             |
+| Alanis Morissette                                                                     |
+| Alice In Chains                                                                       |
+| Antônio Carlos Jobim                                                                  |
+| Apocalyptica                                                                          |
+| Audioslave                                                                            |
+| BackBeat                                                                              |
+| Billy Cobham                                                                          |
+| Black Label Society                                                                   |
+| Black Sabbath                                                                         |
+| Body Count                                                                            |
+| Bruce Dickinson                                                                       |
+| Buddy Guy                                                                             |
+| Caetano Veloso                                                                        |
+| Chico Buarque                                                                         |
+| Chico Science & Nação Zumbi                                                           |
+| Cidade Negra                                                                          |
+| Cláudio Zoli                                                                          |
+| Various Artists                                                                       |
+| Led Zeppelin                                                                          |
+| Frank Zappa & Captain Beefheart                                                       |
+| Marcos Valle                                                                          |
+| Milton Nascimento & Bebeto                                                            |
+| Azymuth                                                                               |
+| Gilberto Gil                                                                          |
+| João Gilberto                                                                         |
+| Bebel Gilberto                                                                        |
+| Jorge Vercilo                                                                         |
+| Baby Consuelo                                                                         |
+| Ney Matogrosso                                                                        |
+| Luiz Melodia                                                                          |
+| Nando Reis                                                                            |
+| Pedro Luís & A Parede                                                                 |
+| O Rappa                                                                               |
+| Ed Motta                                                                              |
+| Banda Black Rio                                                                       |
+| Fernanda Porto                                                                        |
+| Os Cariocas                                                                           |
+| Elis Regina                                                                           |
+| Milton Nascimento                                                                     |
+| A Cor Do Som                                                                          |
+| Kid Abelha                                                                            |
+| Sandra De Sá                                                                          |
+| Jorge Ben                                                                             |
+| Hermeto Pascoal                                                                       |
+| Barão Vermelho                                                                        |
+| Edson, DJ Marky & DJ Patife Featuring Fernanda Porto                                  |
+| Metallica                                                                             |
+| Queen                                                                                 |
+| Kiss                                                                                  |
+| Spyro Gyra                                                                            |
+| Green Day                                                                             |
+| David Coverdale                                                                       |
+| Gonzaguinha                                                                           |
+| Os Mutantes                                                                           |
+| Deep Purple                                                                           |
+| Santana                                                                               |
+| Santana Feat. Dave Matthews                                                           |
+| Santana Feat. Everlast                                                                |
+| Santana Feat. Rob Thomas                                                              |
+| Santana Feat. Lauryn Hill & Cee-Lo                                                    |
+| Santana Feat. The Project G&B                                                         |
+| Santana Feat. Maná                                                                    |
+| Santana Feat. Eagle-Eye Cherry                                                        |
+| Santana Feat. Eric Clapton                                                            |
+| Miles Davis                                                                           |
+| Gene Krupa                                                                            |
+| Toquinho & Vinícius                                                                   |
+| Vinícius De Moraes & Baden Powell                                                     |
+| Vinícius De Moraes                                                                    |
+| Vinícius E Qurteto Em Cy                                                              |
+| Vinícius E Odette Lara                                                                |
+| Vinicius, Toquinho & Quarteto Em Cy                                                   |
+| Creedence Clearwater Revival                                                          |
+| Cássia Eller                                                                          |
+| Def Leppard                                                                           |
+| Dennis Chambers                                                                       |
+| Djavan                                                                                |
+| Eric Clapton                                                                          |
+| Faith No More                                                                         |
+| Falamansa                                                                             |
+| Foo Fighters                                                                          |
+| Frank Sinatra                                                                         |
+| Funk Como Le Gusta                                                                    |
+| Godsmack                                                                              |
+| Guns N' Roses                                                                         |
+| Incognito                                                                             |
+| Iron Maiden                                                                           |
+| James Brown                                                                           |
+| Jamiroquai                                                                            |
+| JET                                                                                   |
+| Jimi Hendrix                                                                          |
+| Joe Satriani                                                                          |
+| Jota Quest                                                                            |
+| João Suplicy                                                                          |
+| Judas Priest                                                                          |
+| Legião Urbana                                                                         |
+| Lenny Kravitz                                                                         |
+| Lulu Santos                                                                           |
+| Marillion                                                                             |
+| Marisa Monte                                                                          |
+| Marvin Gaye                                                                           |
+| Men At Work                                                                           |
+| Motörhead                                                                             |
+| Motörhead & Girlschool                                                                |
+| Mônica Marianno                                                                       |
+| Mötley Crüe                                                                           |
+| Nirvana                                                                               |
+| O Terço                                                                               |
+| Olodum                                                                                |
+| Os Paralamas Do Sucesso                                                               |
+| Ozzy Osbourne                                                                         |
+| Page & Plant                                                                          |
+| Passengers                                                                            |
+| Paul D'Ianno                                                                          |
+| Pearl Jam                                                                             |
+| Peter Tosh                                                                            |
+| Pink Floyd                                                                            |
+| Planet Hemp                                                                           |
+| R.E.M. Feat. Kate Pearson                                                             |
+| R.E.M. Feat. KRS-One                                                                  |
+| R.E.M.                                                                                |
+| Raimundos                                                                             |
+| Raul Seixas                                                                           |
+| Red Hot Chili Peppers                                                                 |
+| Rush                                                                                  |
+| Simply Red                                                                            |
+| Skank                                                                                 |
+| Smashing Pumpkins                                                                     |
+| Soundgarden                                                                           |
+| Stevie Ray Vaughan & Double Trouble                                                   |
+| Stone Temple Pilots                                                                   |
+| System Of A Down                                                                      |
+| Terry Bozzio, Tony Levin & Steve Stevens                                              |
+| The Black Crowes                                                                      |
+| The Clash                                                                             |
+| The Cult                                                                              |
+| The Doors                                                                             |
+| The Police                                                                            |
+| The Rolling Stones                                                                    |
+| The Tea Party                                                                         |
+| The Who                                                                               |
+| Tim Maia                                                                              |
+| Titãs                                                                                 |
+| Battlestar Galactica                                                                  |
+| Heroes                                                                                |
+| Lost                                                                                  |
+| U2                                                                                    |
+| UB40                                                                                  |
+| Van Halen                                                                             |
+| Velvet Revolver                                                                       |
+| Whitesnake                                                                            |
+| Zeca Pagodinho                                                                        |
+| The Office                                                                            |
+| Dread Zeppelin                                                                        |
+| Battlestar Galactica (Classic)                                                        |
+| Aquaman                                                                               |
+| Christina Aguilera featuring BigElf                                                   |
+| Aerosmith & Sierra Leone's Refugee Allstars                                           |
+| Los Lonely Boys                                                                       |
+| Corinne Bailey Rae                                                                    |
+| Dhani Harrison & Jakob Dylan                                                          |
+| Jackson Browne                                                                        |
+| Avril Lavigne                                                                         |
+| Big & Rich                                                                            |
+| Youssou N'Dour                                                                        |
+| Black Eyed Peas                                                                       |
+| Jack Johnson                                                                          |
+| Ben Harper                                                                            |
+| Snow Patrol                                                                           |
+| Matisyahu                                                                             |
+| The Postal Service                                                                    |
+| Jaguares                                                                              |
+| The Flaming Lips                                                                      |
+| Jack's Mannequin & Mick Fleetwood                                                     |
+| Regina Spektor                                                                        |
+| Scorpions                                                                             |
+| House Of Pain                                                                         |
+| Xis                                                                                   |
+| Nega Gizza                                                                            |
+| Gustavo & Andres Veiga & Salazar                                                      |
+| Rodox                                                                                 |
+| Charlie Brown Jr.                                                                     |
+| Pedro Luís E A Parede                                                                 |
+| Los Hermanos                                                                          |
+| Mundo Livre S/A                                                                       |
+| Otto                                                                                  |
+| Instituto                                                                             |
+| Nação Zumbi                                                                           |
+| DJ Dolores & Orchestra Santa Massa                                                    |
+| Seu Jorge                                                                             |
+| Sabotage E Instituto                                                                  |
+| Stereo Maracana                                                                       |
+| Cake                                                                                  |
+| Aisha Duo                                                                             |
+| Habib Koité and Bamada                                                                |
+| Karsh Kale                                                                            |
+| The Posies                                                                            |
+| Luciana Souza/Romero Lubambo                                                          |
+| Aaron Goldberg                                                                        |
+| Nicolaus Esterhazy Sinfonia                                                           |
+| Temple of the Dog                                                                     |
+| Chris Cornell                                                                         |
+| Alberto Turco & Nova Schola Gregoriana                                                |
+| Richard Marlow & The Choir of Trinity College, Cambridge                              |
+| English Concert & Trevor Pinnock                                                      |
+| Anne-Sophie Mutter, Herbert Von Karajan & Wiener Philharmoniker                       |
+| Hilary Hahn, Jeffrey Kahane, Los Angeles Chamber Orchestra & Margaret Batjer          |
+| Wilhelm Kempff                                                                        |
+| Yo-Yo Ma                                                                              |
+| Scholars Baroque Ensemble                                                             |
+| Academy of St. Martin in the Fields & Sir Neville Marriner                            |
+| Academy of St. Martin in the Fields Chamber Ensemble & Sir Neville Marriner           |
+| Berliner Philharmoniker, Claudio Abbado & Sabine Meyer                                |
+| Royal Philharmonic Orchestra & Sir Thomas Beecham                                     |
+| Orchestre Révolutionnaire et Romantique & John Eliot Gardiner                         |
+| Britten Sinfonia, Ivor Bolton & Lesley Garrett                                        |
+| Chicago Symphony Chorus, Chicago Symphony Orchestra & Sir Georg Solti                 |
+| Sir Georg Solti & Wiener Philharmoniker                                               |
+| Academy of St. Martin in the Fields, John Birch, Sir Neville Marriner & Sylvia McNair |
+| London Symphony Orchestra & Sir Charles Mackerras                                     |
+| Barry Wordsworth & BBC Concert Orchestra                                              |
+| Herbert Von Karajan, Mirella Freni & Wiener Philharmoniker                            |
+| Eugene Ormandy                                                                        |
+| Luciano Pavarotti                                                                     |
+| Leonard Bernstein & New York Philharmonic                                             |
+| Boston Symphony Orchestra & Seiji Ozawa                                               |
+| Aaron Copland & London Symphony Orchestra                                             |
+| Ton Koopman                                                                           |
+| Sergei Prokofiev & Yuri Temirkanov                                                    |
+| Chicago Symphony Orchestra & Fritz Reiner                                             |
+| Orchestra of The Age of Enlightenment                                                 |
+| Emanuel Ax, Eugene Ormandy & Philadelphia Orchestra                                   |
+| James Levine                                                                          |
+| Berliner Philharmoniker & Hans Rosbaud                                                |
+| Maurizio Pollini                                                                      |
+| Academy of St. Martin in the Fields, Sir Neville Marriner & William Bennett           |
+| Gustav Mahler                                                                         |
+| Felix Schmidt, London Symphony Orchestra & Rafael Frühbeck de Burgos                  |
+| Edo de Waart & San Francisco Symphony                                                 |
+| Antal Doráti & London Symphony Orchestra                                              |
+| Choir Of Westminster Abbey & Simon Preston                                            |
+| Michael Tilson Thomas & San Francisco Symphony                                        |
+| Chor der Wiener Staatsoper, Herbert Von Karajan & Wiener Philharmoniker               |
+| The King's Singers                                                                    |
+| Berliner Philharmoniker & Herbert Von Karajan                                         |
+| Sir Georg Solti, Sumi Jo & Wiener Philharmoniker                                      |
+| Christopher O'Riley                                                                   |
+| Fretwork                                                                              |
+| Amy Winehouse                                                                         |
+| Calexico                                                                              |
+| Otto Klemperer & Philharmonia Orchestra                                               |
+| Yehudi Menuhin                                                                        |
+| Philharmonia Orchestra & Sir Neville Marriner                                         |
+| Academy of St. Martin in the Fields, Sir Neville Marriner & Thurston Dart             |
+| Les Arts Florissants & William Christie                                               |
+| The 12 Cellists of The Berlin Philharmonic                                            |
+| Adrian Leaper & Doreen de Feis                                                        |
+| Roger Norrington, London Classical Players                                            |
+| Charles Dutoit & L'Orchestre Symphonique de Montréal                                  |
+| Equale Brass Ensemble, John Eliot Gardiner & Munich Monteverdi Orchestra and Choir    |
+| Kent Nagano and Orchestre de l'Opéra de Lyon                                          |
+| Julian Bream                                                                          |
+| Martin Roscoe                                                                         |
+| Göteborgs Symfoniker & Neeme Järvi                                                    |
+| Itzhak Perlman                                                                        |
+| Michele Campanella                                                                    |
+| Gerald Moore                                                                          |
+| Mela Tenenbaum, Pro Musica Prague & Richard Kapp                                      |
+| Emerson String Quartet                                                                |
+| C. Monteverdi, Nigel Rogers - Chiaroscuro; London Baroque; London Cornett & Sackbu    |
+| Nash Ensemble                                                                         |
+| Philip Glass Ensemble                                                                 |
++---------------------------------------------------------------------------------------+
+275 rows in set (0.00 sec)
+
+mysql> select FirstName, LastName from each Customer;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'each Customer' at line 1
+mysql> select FirstName, LastName from each Customer
+    -> select FirstName, LastName from each Customer;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'each Customer
+select FirstName, LastName from each Customer' at line 1
+mysql> show tables;
++-------------------+
+| Tables_in_Chinook |
++-------------------+
+| Album             |
+| Artist            |
+| Customer          |
+| Employee          |
+| Genre             |
+| Invoice           |
+| InvoiceLine       |
+| MediaType         |
+| Playlist          |
+| PlaylistTrack     |
+| Track             |
++-------------------+
+11 rows in set (0.00 sec)
+
+mysql> desc Customer;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| CustomerId   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| FirstName    | varchar(40) | NO   |     | NULL    |                |
+| LastName     | varchar(20) | NO   |     | NULL    |                |
+| Company      | varchar(80) | YES  |     | NULL    |                |
+| Address      | varchar(70) | YES  |     | NULL    |                |
+| City         | varchar(40) | YES  |     | NULL    |                |
+| State        | varchar(40) | YES  |     | NULL    |                |
+| Country      | varchar(40) | YES  |     | NULL    |                |
+| PostalCode   | varchar(10) | YES  |     | NULL    |                |
+| Phone        | varchar(24) | YES  |     | NULL    |                |
+| Fax          | varchar(24) | YES  |     | NULL    |                |
+| Email        | varchar(60) | NO   |     | NULL    |                |
+| SupportRepId | int(11)     | YES  | MUL | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+13 rows in set (0.00 sec)
+
+mysql> select FirstName, LastName from each Customer;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'each Customer' at line 1
+mysql> select FirstName,LastName from each Customer;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'each Customer' at line 1
+mysql> select * FirstName,LastName from each Customer;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FirstName,LastName from each Customer' at line 1
+mysql> \q
