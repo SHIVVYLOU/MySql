@@ -1,24 +1,22 @@
 import os
+import datetime
 import pymysql
 
-#get user from Cloud9 workspace
-#(modify this variable if running on another envir0nment)
+# Get the username from the Cloud9 workspace
+# (modify this variable if running on another environment)
 username = os.getenv('C9_USER')
 
-#CONNECT TO THE DATABASE
-connection =pymysql.connect(host='localhost',
-                            user= username,
-                            password= '',
-                            db='Chinook')
+# Connect to the database
+connection = pymysql.connect(host='localhost',
+                             user=username,
+                             password='',
+                             db='Chinook')
 
 try:
-    #run a query
     with connection.cursor() as cursor:
-        sql = 'SELECT * FROM Artist;'
-        cursor.execute(sql)
-        result = cursor.fetchall()
-        print(result)
+        cursor.execute("""CREATE TABLE IF NOT EXISTS
+                          Friends(name char(20), age int, DOB datetime);""")
+        # Note that the above will still display a warning (not error) if the
+        # table already exists
 finally:
-    #close the connection, regardless of whether the above was successful
-    connection.close
-    ()
+    connection.close()
